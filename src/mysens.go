@@ -12,7 +12,6 @@ import (
 )
 
 const (
-	tcpProtocol    = "tcp4"
 	keySize        = 1024
 	readWriterSize = keySize / 8
 )
@@ -24,14 +23,11 @@ func checkErr(err error) {
 	}
 }
 
-var connectAddr = &net.TCPAddr{IP: net.IPv4(192, 168, 1, 234), Port: 0}
+var connectAddr = &net.TCPAddr{IP: net.IPv4(127, 0, 0, 1), Port: 50137}
 
 func connectTo() *net.TCPConn {
-	fmt.Print("Enter port:")
-	fmt.Scanf("%d", &connectAddr.Port)
 	fmt.Println("Connect to", connectAddr)
-
-	c, err := net.DialTCP(tcpProtocol, nil, connectAddr)
+	c, err := net.DialTCP("tcp4", nil, connectAddr)
 	checkErr(err)
 	return c
 }
